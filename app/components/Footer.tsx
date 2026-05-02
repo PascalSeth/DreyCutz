@@ -116,9 +116,7 @@ const Footer = () => {
             <a href="#" className="text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-colors">Terms of Service</a>
           </div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
-            DESIGNED BY <span className="text-white">ANTIGRAVITY</span>
-          </p>
+
         </div>
       </div>
     </footer>
