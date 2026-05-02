@@ -11,7 +11,7 @@
   --animate-dc-fade: dcFade 0.5s ease forwards;
   --animate-dc-rise: dcRise 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   --animate-dc-slide-x: dcSlideX 0.6s ease forwards;
-  
+
   --animate-dc-logo-float: dcLogoFloat 6s ease-in-out infinite;
   --animate-dc-ring-1: dcRingRotate 22s linear infinite;
   --animate-dc-ring-2: dcRingRotate 14s linear infinite reverse;
@@ -20,43 +20,99 @@
 }
 
 @keyframes dcZoom {
-  from { transform: scale(1.05); }
-  to   { transform: scale(1.0); }
+  from {
+    transform: scale(1.05);
+  }
+
+  to {
+    transform: scale(1.0);
+  }
 }
 
 @keyframes dcGrow {
-  from { transform: scaleX(0); opacity: 1; }
-  to   { transform: scaleX(1); opacity: 1; }
+  from {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
 
 @keyframes dcFade {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes dcRise {
-  from { opacity: 0; transform: translateY(36px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes dcSlideX {
-  from { opacity: 0; transform: translateX(-18px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes dcLetterIn {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes dcLogoReveal {
-  from { opacity: 0; transform: scale(0.6) rotate(-15deg); filter: blur(10px); }
-  to   { opacity: 1; transform: scale(1) rotate(0deg);   filter: blur(0px); }
+  from {
+    opacity: 0;
+    transform: scale(0.6) rotate(-15deg);
+    filter: blur(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
 }
 
 @keyframes dcLogoFloat {
-  0%, 100% { transform: translateY(0px)   rotate(0deg); }
-  50%      { transform: translateY(-14px) rotate(1.5deg); }
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-14px) rotate(1.5deg);
+  }
 }
 
 .dc-float-logo {
@@ -64,65 +120,140 @@
 }
 
 @keyframes dcRingRotate {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes dcGlowPulse {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50%      { opacity: 0.7; transform: scale(1.1); }
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
 }
 
 @keyframes dcOrb1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%      { transform: translate(50px, -70px) scale(1.1); }
-  66%      { transform: translate(-30px, 40px) scale(0.92); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(50px, -70px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-30px, 40px) scale(0.92);
+  }
 }
 
 @keyframes dcOrb2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50%      { transform: translate(-70px, 50px) scale(1.15); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(-70px, 50px) scale(1.15);
+  }
 }
 
 @keyframes dcOrb3 {
-  0%, 100% { transform: translate(0, 0); }
-  40%      { transform: translate(60px, 60px); }
-  80%      { transform: translate(-25px, -45px); }
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  40% {
+    transform: translate(60px, 60px);
+  }
+
+  80% {
+    transform: translate(-25px, -45px);
+  }
 }
 
 @keyframes dcScan {
-  0%   { top: -2px; opacity: 0; }
-  3%   { opacity: 1; }
-  97%  { opacity: 0.5; }
-  100% { top: 100%; opacity: 0; }
+  0% {
+    top: -2px;
+    opacity: 0;
+  }
+
+  3% {
+    opacity: 1;
+  }
+
+  97% {
+    opacity: 0.5;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
 }
 
 @keyframes dcRingPulse {
-  0%   { transform: scale(1);   opacity: 0.6; }
-  100% { transform: scale(1.9); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
 }
 
 @keyframes dcFloat {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes dcShimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position:  200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 @keyframes dcDash {
-  from { stroke-dashoffset: 100; }
-  to   { stroke-dashoffset: 0; }
+  from {
+    stroke-dashoffset: 100;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 :root {
@@ -136,22 +267,13 @@ body {
   color: var(--foreground);
   font-family: "Montserrat", sans-serif;
   overflow-x: hidden;
-  width: 100%;
-  position: relative;
-  /* Improve mobile scrolling smoothness */
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Force hardware acceleration on fixed/absolute layers globally */
-.fixed, .absolute {
-  transform: translateZ(0);
-  backface-visibility: hidden;
 }
 
 /* Utilities */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -185,7 +307,7 @@ body {
   font-weight: 800;
   text-transform: uppercase;
   color: #1A1A1A;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
   transition: all 0.2s;
   display: flex;
   align-items: center;
@@ -196,7 +318,7 @@ body {
   background: #1A1A1A !important;
   color: white !important;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .react-calendar__navigation__label {
@@ -265,7 +387,7 @@ body {
   background: #1A1A1A !important;
   color: white !important;
   border-color: #1A1A1A !important;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   transform: scale(1.05);
 }
 
