@@ -35,7 +35,10 @@ const GlobalBackground = () => {
   ];
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-[-1] select-none bg-white">
+    <div 
+      className="fixed inset-0 overflow-hidden pointer-events-none z-[-1] select-none bg-[#FAFAFA]"
+      style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
+    >
       {/* Dynamic Keyframes for falling animation */}
       <style>{`
         @keyframes floatDown {
@@ -58,12 +61,24 @@ const GlobalBackground = () => {
       `}</style>
 
       {/* Ambient Blue Glows */}
-      <div className="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] bg-blue-400/10 blur-[120px] rounded-full ambient-glow" />
-      <div className="absolute top-[20%] -right-[10%] w-[50vw] h-[50vw] bg-blue-500/5 blur-[100px] rounded-full ambient-glow [animation-delay:2s]" />
-      <div className="absolute -bottom-[10%] left-[20%] w-[40vw] h-[40vw] bg-blue-300/10 blur-[100px] rounded-full ambient-glow [animation-delay:4s]" />
+      <div 
+        className="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] bg-blue-400/10 blur-[80px] rounded-full ambient-glow" 
+        style={{ transform: 'translateZ(0)' }}
+      />
+      <div 
+        className="absolute top-[20%] -right-[10%] w-[50vw] h-[50vw] bg-blue-500/5 blur-[70px] rounded-full ambient-glow [animation-delay:2s]" 
+        style={{ transform: 'translateZ(0)' }}
+      />
+      <div 
+        className="absolute -bottom-[10%] left-[20%] w-[40vw] h-[40vw] bg-blue-300/10 blur-[70px] rounded-full ambient-glow [animation-delay:4s]" 
+        style={{ transform: 'translateZ(0)' }}
+      />
 
       {/* Subtle Dot Grid Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(#E0DCD1_1.5px,transparent_1.5px)] [background-size:60px_60px] opacity-[0.5]" />
+      <div 
+        className="absolute inset-0 bg-[radial-gradient(#E0DCD1_1.5px,transparent_1.5px)] [background-size:60px_60px] opacity-[0.5]" 
+        style={{ transform: 'translateZ(0)', willChange: 'transform' }}
+      />
 
       {/* Sweeping vintage bezier curve lines */}
       <svg className="absolute inset-0 w-full h-full opacity-40" preserveAspectRatio="none">

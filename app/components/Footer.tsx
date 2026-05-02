@@ -22,9 +22,15 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-[#1A1A1A] text-white pt-24 pb-12 overflow-hidden border-t border-white/5">
+    <footer 
+      className="relative bg-[#1A1A1A] text-white pt-24 pb-12 overflow-hidden border-t border-white/5"
+      style={{ transform: 'translateZ(0)' }}
+    >
       {/* Decorative background logo */}
-      <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none select-none">
+      <div 
+        className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none select-none"
+        style={{ transform: 'translateZ(0)', willChange: 'transform' }}
+      >
         <h2 className="text-[20vw] font-black leading-none uppercase tracking-tighter">DREY</h2>
       </div>
 
