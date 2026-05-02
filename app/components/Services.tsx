@@ -96,6 +96,7 @@ export default function ServicesRedefined() {
   }, []);
 
   const scrollToSection = (id: string) => {
+    setActiveId(id);
     const element = document.getElementById(id);
     if (element) {
       const y = element.getBoundingClientRect().top + window.scrollY - 140;
@@ -116,117 +117,169 @@ export default function ServicesRedefined() {
       style={{ fontFamily: "'Montserrat', sans-serif" }}
     >
 
-      {/* STICKY NAV */}
-      <div className="sticky top-[64px] z-40 bg-[#FAFAFA]/90 backdrop-blur-md border-b border-gray-200/60 mb-16 md:mb-24 px-5">
-        <div className="max-w-[1400px] mx-auto flex items-center justify-between py-4">
-          <span className="text-xs font-bold tracking-[0.2em] uppercase text-gray-400 hidden md:block">
-            Menu / 2024
-          </span>
-          <div className="flex items-center gap-6 md:gap-10 overflow-x-auto w-full md:w-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {servicesData.map((cat, idx) => (
-              <button
-                key={cat.id}
-                onClick={() => scrollToSection(cat.id)}
-                className={`text-xs md:text-sm font-bold uppercase tracking-widest whitespace-nowrap transition-all duration-300 ${activeId === cat.id ? 'text-[#1A1A1A]' : 'text-gray-400 hover:text-[#1A1A1A]'
-                  }`}
-              >
-                <span className="text-gray-300 mr-2 font-medium">0{idx + 1}</span>
-                {cat.category}
-              </button>
-            ))}
+      {/* STICKY NAV / TAB BAR */}
+      <div className="sticky top-[72px] z-40 mb-12 md:mb-24 px-4 sm:px-6">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="bg-white/80 backdrop-blur-xl border border-gray-200/50 rounded-2xl p-1.5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex items-center justify-between">
+            <div className="flex items-center gap-1 overflow-x-auto w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              {servicesData.map((cat, idx) => (
+                <button
+                  key={cat.id}
+                  onClick={() => scrollToSection(cat.id)}
+                  className={`relative flex-1 min-w-[100px] md:min-w-[120px] py-3 px-4 rounded-xl text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all duration-500 overflow-hidden ${activeId === cat.id
+                    ? 'text-white shadow-lg'
+                    : 'text-gray-500 hover:text-[#1A1A1A] hover:bg-gray-50'
+                    }`}
+                >
+                  {/* Background Pill Animation */}
+                  {activeId === cat.id && (
+                    <div className="absolute inset-0 bg-[#1A1A1A] z-0" />
+                  )}
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    <span className={`opacity-50 ${activeId === cat.id ? 'text-gray-400' : 'text-gray-300'}`}>0{idx + 1}</span>
+                    {cat.category}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-5 md:px-12 lg:px-16 flex flex-col gap-32 md:gap-48 relative z-10">
-        {servicesData.map((cat, idx) => {
-          const isEven = idx % 2 === 0;
+      <div className="max-w-[1400px] mx-auto px-4 md:px-12 lg:px-16 relative z-10">
+        {/* 
+            DYNAMIC CONTENT AREA 
+            - On Mobile: Only shows the ACTIVE category (Tabbed Mode)
+            - On Desktop: Shows ALL categories (Scroll Mode)
+        */}
+        <div className="md:flex md:flex-col md:gap-48">
+          {servicesData.map((cat, idx) => {
+            const isEven = idx % 2 === 0;
+            const isActive = activeId === cat.id;
 
-          const imageShapes = [
-            "rounded-t-full rounded-b-[2rem] md:rounded-b-[4rem]",
-            "rounded-full",
-            "rounded-tl-[6rem] rounded-br-[6rem] md:rounded-tl-[10rem] md:rounded-br-[10rem] rounded-tr-[2rem] rounded-bl-[2rem]"
-          ];
-          const currentShape = imageShapes[idx % imageShapes.length];
+            const imageShapes = [
+              "rounded-2xl md:rounded-t-full md:rounded-b-[4rem]",
+              "rounded-2xl md:rounded-full",
+              "rounded-2xl md:rounded-tl-[10rem] md:rounded-br-[10rem] md:rounded-tr-[2rem] md:rounded-bl-[2rem]"
+            ];
+            const currentShape = imageShapes[idx % imageShapes.length];
 
-          return (
-            <div key={cat.id} id={cat.id} className="relative scroll-mt-[120px]">
-
-              {/* Section Header */}
-              <div className="mb-12 md:mb-16 border-b border-gray-200 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                <div className="max-w-2xl">
-                  <h3 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] text-[#1A1A1A] mb-6">
-                    {cat.category}
-                  </h3>
-                  <p className="text-base md:text-lg text-gray-500 font-medium leading-relaxed">
-                    {cat.description}
-                  </p>
-                </div>
-                <div className="text-sm font-bold tracking-[0.2em] text-gray-300 flex-shrink-0">
-                  SEC // 0{idx + 1}
-                </div>
-              </div>
-
-              {/* Two-column layout */}
-              <div className={`flex flex-col gap-12 lg:gap-20 ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
-
-                {/*
-                  IMAGE COLUMN
-                  - self-start: prevents the column from stretching to sibling height
-                    (flex children stretch by default; sticky needs a shorter container)
-                  - lg:sticky + lg:top-[140px]: sticks below header (64px) + nav (~57px) + gap
-                  - No overflow-hidden here or on any ancestor above this point
-                */}
-                <div className="w-full lg:w-[40%] flex-shrink-0 self-start lg:sticky lg:top-[140px]">
-                  <RevealImage src={cat.image} alt={cat.category} shape={currentShape} />
-                </div>
-
-                {/* ITEMS LIST — scrolls naturally, image sticks alongside */}
-                <div className="w-full lg:w-[60%] flex flex-col border-t border-gray-200/50 lg:border-none pt-4 lg:pt-0">
-                  {cat.items.map((item, index) => (
-                    <div
-                      key={index}
-                      onClick={() =>
-                        window.dispatchEvent(
-                          new CustomEvent('openBookingModal', { detail: { serviceName: item.name } })
-                        )
-                      }
-                      className="group relative flex flex-col sm:flex-row sm:items-center justify-between py-6 md:py-8 border-b border-gray-200 transition-colors hover:border-[#1A1A1A] cursor-pointer"
-                    >
-                      <div className="flex-1 pr-4 mb-4 sm:mb-0">
-                        <h5 className="text-lg md:text-xl font-bold uppercase tracking-tight text-[#1A1A1A] mb-1 group-hover:translate-x-2 transition-transform duration-300 group-hover:text-[#1D6FE8]">
-                          {item.name}
-                        </h5>
-                        {item.detail && (
-                          <p className="text-xs font-medium text-gray-500 mt-2 max-w-sm leading-relaxed group-hover:translate-x-2 transition-transform duration-300 delay-75">
-                            {item.detail}
-                          </p>
-                        )}
-                      </div>
-
-                      <div className="flex items-center justify-between sm:justify-end gap-4 sm:gap-10 w-full sm:w-auto shrink-0 mt-2 sm:mt-0 pt-4 sm:pt-0 border-t border-gray-100 sm:border-none">
-                        <div className="flex flex-col text-left sm:text-right">
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-[#1D6FE8] mb-1">
-                            {item.duration}
-                          </span>
-                          <span className="text-xl md:text-2xl font-black tracking-tighter text-[#1A1A1A]">
-                            {item.price}
-                          </span>
-                        </div>
-                        <div className="flex items-center justify-center overflow-hidden transition-all duration-300 h-10 px-6 rounded-full bg-[#1A1A1A] border-transparent md:h-12 md:w-12 md:px-0 md:bg-transparent md:border-gray-300 md:border group-hover:bg-[#1D6FE8] group-hover:border-[#1D6FE8] group-hover:shadow-[0_0_20px_rgba(29,111,232,0.4)]">
-                          <span className="text-[10px] md:text-[9px] font-bold uppercase tracking-widest text-white md:opacity-0 md:translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                            Book
-                          </span>
-                        </div>
-                      </div>
+            return (
+              <div
+                key={cat.id}
+                id={cat.id}
+                className={`relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                  // Mobile Logic: Hide if not active
+                  !isActive ? 'max-md:hidden opacity-0 translate-y-10' : 'opacity-100 translate-y-0'
+                } ${
+                  // Desktop Logic: Normal scroll flow
+                  'md:scroll-mt-[160px] md:opacity-100 md:translate-y-0'
+                }`}
+              >
+                {/* Section Header */}
+                <div className="mb-8 md:mb-16 border-b border-gray-100 pb-6 md:pb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                  <div className="max-w-2xl">
+                    <div className="flex items-center gap-3 mb-3 md:mb-4">
+                      <span className="bg-[#1D6FE8]/10 text-[#1D6FE8] text-[9px] md:text-[10px] font-black px-2 md:px-3 py-1 rounded-full uppercase tracking-widest">
+                        Category 0{idx + 1}
+                      </span>
                     </div>
-                  ))}
+                    <h3 className="text-3xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] text-[#1A1A1A] mb-4 md:mb-6">
+                      {cat.category}
+                    </h3>
+                    <p className="text-xs md:text-lg text-gray-500 font-medium leading-relaxed">
+                      {cat.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Layout */}
+                <div className={`flex flex-col gap-8 lg:gap-20 ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
+                  {/* IMAGE COLUMN */}
+                  <div className="w-full lg:w-[40%] flex-shrink-0 self-start lg:sticky lg:top-[160px]">
+                    <div className="hidden md:block">
+                      <RevealImage src={cat.image} alt={cat.category} shape={currentShape} />
+                    </div>
+                    {/* Mobile Compact Card Image */}
+                    <div className="md:hidden w-full aspect-[21/9] relative overflow-hidden rounded-2xl shadow-md border border-gray-100">
+                      <Image
+                        src={cat.image}
+                        alt={cat.category}
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    </div>
+                  </div>
+
+                  {/* ITEMS LIST */}
+                  <div className="w-full lg:w-[60%] flex flex-col pt-2 md:pt-0">
+                    {cat.items.map((item, index) => (
+                      <div
+                        key={index}
+                        onClick={() =>
+                          window.dispatchEvent(
+                            new CustomEvent('openBookingModal', { detail: { serviceName: item.name } })
+                          )
+                        }
+                        className="group relative flex items-center justify-between py-4 md:py-8 border-b border-gray-50 md:border-gray-100 transition-all duration-300 hover:border-[#1A1A1A] cursor-pointer active:scale-[0.98]"
+                      >
+                        {/* Interactive Hover Background */}
+                        <div className="absolute inset-0 bg-gray-50/0 group-hover:bg-gray-50/50 -mx-3 md:-mx-4 px-3 md:px-4 rounded-xl transition-all duration-300 -z-10" />
+
+                        <div className="flex-1 pr-4">
+                          <div className="flex flex-col">
+                            <h5 className="text-sm md:text-xl font-bold uppercase tracking-tight text-[#1A1A1A] transition-all duration-300 group-hover:text-[#1D6FE8] group-hover:translate-x-1">
+                              {item.name}
+                            </h5>
+                            <div className="flex items-center gap-2 md:gap-3 mt-1">
+                              <span className="text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-[#1D6FE8] bg-[#1D6FE8]/5 px-1.5 py-0.5 rounded">
+                                {item.duration}
+                              </span>
+                              {item.detail && (
+                                <span className="text-[8px] md:text-xs font-medium text-gray-400 truncate max-w-[150px] md:max-w-xs">
+                                  {item.detail}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-3 md:gap-8 shrink-0">
+                          <span className="text-base md:text-2xl font-black tracking-tighter text-[#1A1A1A]">
+                            {item.price.replace('CA$', '$')}
+                          </span>
+                          
+                          <div className="flex items-center justify-center w-8 h-8 md:w-12 md:h-12 rounded-full border border-gray-200 group-hover:border-[#1D6FE8] group-hover:bg-[#1D6FE8] transition-all duration-300 shadow-sm overflow-hidden">
+                            <div className="relative w-full h-full flex items-center justify-center">
+                              <span className="text-[8px] md:text-[9px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-white transition-all duration-300">
+                                Book
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    
+                    {/* MOBILE NEXT CATEGORY PREVIEW */}
+                    <div className="md:hidden mt-8 pt-8 border-t border-dashed border-gray-200">
+                       <button 
+                         onClick={() => {
+                            const nextIdx = (idx + 1) % servicesData.length;
+                            scrollToSection(servicesData[nextIdx].id);
+                         }}
+                         className="w-full py-4 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-[#1A1A1A] transition-colors"
+                       >
+                         Next: {servicesData[(idx + 1) % servicesData.length].category}
+                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                       </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
       {/* BOOKING POLICY */}
