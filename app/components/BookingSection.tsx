@@ -15,6 +15,7 @@ import {
   Zap,
   Star
 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const categorizedServices = [
   {
@@ -59,6 +60,7 @@ const categorizedServices = [
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 const BookingSection = () => {
+  const { t } = useLanguage();
   const [activeDay, setActiveDay] = useState('Fri');
   const [mobileTab, setMobileTab] = useState<'services' | 'info'>('services');
   const [activeCategory, setActiveCategory] = useState(categorizedServices[0].id);
@@ -76,7 +78,7 @@ const BookingSection = () => {
         {/* Header */}
         <div className="text-center mb-16 md:mb-24">
           <h2 className="text-4xl md:text-7xl font-black text-[#1A1A1A] tracking-tighter uppercase mb-6 leading-none">
-            Ready for a <span className="text-blue-600 italic">Fresh</span> Cut?
+            {t('booking.title_part1')}<span className="text-blue-600 italic">{t('booking.title_fresh')}</span>{t('booking.title_part2')}
           </h2>
           <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full" />
         </div>
@@ -89,7 +91,7 @@ const BookingSection = () => {
                mobileTab === 'services' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-400'
              }`}
            >
-             <Scissors size={14} /> Services
+             <Scissors size={14} /> {t('booking.tab_services')}
            </button>
            <button 
              onClick={() => setMobileTab('info')}
@@ -97,7 +99,7 @@ const BookingSection = () => {
                mobileTab === 'info' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-400'
              }`}
            >
-             <Info size={14} /> Studio Info
+             <Info size={14} /> {t('booking.tab_info')}
            </button>
         </div>
 
@@ -109,8 +111,8 @@ const BookingSection = () => {
           }`}>
             <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-gray-50 pb-8">
               <div>
-                <h3 className="text-2xl md:text-3xl font-black text-[#1A1A1A] uppercase tracking-tighter mb-1">Service Menu</h3>
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Select a category to explore</p>
+                <h3 className="text-2xl md:text-3xl font-black text-[#1A1A1A] uppercase tracking-tighter mb-1">{t('booking.menu_title')}</h3>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{t('booking.menu_desc')}</p>
               </div>
               
               {/* Category Selector (Compact) */}
@@ -123,7 +125,7 @@ const BookingSection = () => {
                        activeCategory === cat.id ? 'bg-white text-blue-600 shadow-sm border border-blue-100' : 'text-gray-400 hover:text-gray-600'
                      }`}
                    >
-                     {cat.category}
+                     {t(`category.${cat.id}`) || cat.category}
                    </button>
                  ))}
               </div>
@@ -135,7 +137,7 @@ const BookingSection = () => {
                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
                     {currentCategory.icon}
                  </div>
-                 <h4 className="text-sm font-black uppercase tracking-[0.2em] text-[#1A1A1A]">{currentCategory.category}</h4>
+                 <h4 className="text-sm font-black uppercase tracking-[0.2em] text-[#1A1A1A]">{t(`category.${currentCategory.id}`) || currentCategory.category}</h4>
               </div>
 
               <div className="grid grid-cols-1 gap-3">
@@ -171,13 +173,13 @@ const BookingSection = () => {
             
             {/* Contact Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-               <InfoCard small icon={<Phone size={16} />} label="Call" value="438-221-9349" href="tel:4382219349" />
-               <InfoCard small icon={<Mail size={16} />} label="Email" value="dreyvibez1@gmail.com" href="mailto:dreyvibez1@gmail.com" />
+               <InfoCard small icon={<Phone size={16} />} label={t('booking.info_call')} value="438-221-9349" href="tel:4382219349" />
+               <InfoCard small icon={<Mail size={16} />} label={t('booking.info_email')} value="dreyvibez1@gmail.com" href="mailto:dreyvibez1@gmail.com" />
             </div>
 
             <InfoCard 
               icon={<MapPin className="text-blue-600" size={20} />} 
-              label="Location" 
+              label={t('booking.info_location')} 
               value="2025 Rue Bélanger" 
               subValue="Montréal, QC H2E 2N8"
             />
@@ -187,10 +189,10 @@ const BookingSection = () => {
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
                   <TrendingUp size={18} className="text-blue-600" />
-                  <h4 className="text-xs font-black uppercase tracking-[0.3em] text-[#1A1A1A]">Popular Times</h4>
+                  <h4 className="text-xs font-black uppercase tracking-[0.3em] text-[#1A1A1A]">{t('booking.popular_times')}</h4>
                 </div>
                 <div className="px-3 py-1 bg-blue-50 rounded-full">
-                   <span className="text-[8px] font-black text-blue-600 uppercase tracking-widest">{activeDay} Availability</span>
+                   <span className="text-[8px] font-black text-blue-600 uppercase tracking-widest">{activeDay}{t('booking.availability_suffix')}</span>
                 </div>
               </div>
 
@@ -232,9 +234,9 @@ const BookingSection = () => {
               </div>
 
               <div className="flex justify-center gap-6">
-                <LegendItem color="bg-blue-500" label="Quiet" />
-                <LegendItem color="bg-yellow-400" label="Moderate" />
-                <LegendItem color="bg-red-400" label="Busy" />
+                <LegendItem color="bg-blue-500" label={t('booking.quiet')} />
+                <LegendItem color="bg-yellow-400" label={t('booking.moderate')} />
+                <LegendItem color="bg-red-400" label={t('booking.busy')} />
               </div>
             </div>
 
@@ -243,7 +245,7 @@ const BookingSection = () => {
               <div className="absolute top-0 right-0 p-8 opacity-5 -rotate-12 transition-transform duration-700 group-hover:rotate-0">
                  <Calendar size={80} />
               </div>
-              <h4 className="text-xs font-black uppercase tracking-[0.3em] text-blue-500 mb-8 relative z-10">Studio Schedule</h4>
+              <h4 className="text-xs font-black uppercase tracking-[0.3em] text-blue-500 mb-8 relative z-10">{t('booking.schedule_title')}</h4>
               <div className="space-y-4 relative z-10">
                 <HourRow dark day="Mon - Fri" time="10:00 AM - 9:00 PM" />
                 <HourRow dark day="Sat - Sun" time="10:00 AM - 9:00 PM" />

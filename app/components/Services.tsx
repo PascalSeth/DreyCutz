@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useLanguage } from '../context/LanguageContext';
 
 const servicesData = [
   {
@@ -73,6 +74,7 @@ const servicesData = [
 
 
 export default function ServicesRedefined() {
+  const { t, language } = useLanguage();
   const [activeId, setActiveId] = useState(servicesData[0].id);
   const [isClient, setIsClient] = useState(false);
 
@@ -137,7 +139,7 @@ export default function ServicesRedefined() {
                   )}
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     <span className={`opacity-50 ${activeId === cat.id ? 'text-gray-400' : 'text-gray-300'}`}>0{idx + 1}</span>
-                    {cat.category}
+                    {t(`category.${cat.id}`) || cat.category}
                   </span>
                 </button>
               ))}
@@ -181,11 +183,11 @@ export default function ServicesRedefined() {
                   <div className="max-w-2xl">
                     <div className="flex items-center gap-3 mb-3 md:mb-4">
                       <span className="bg-[#1D6FE8]/10 text-[#1D6FE8] text-[9px] md:text-[10px] font-black px-2 md:px-3 py-1 rounded-full uppercase tracking-widest">
-                        Category 0{idx + 1}
+                        {t('services.category_label') || 'Category'} 0{idx + 1}
                       </span>
                     </div>
                     <h3 className="text-3xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] text-[#1A1A1A] mb-4 md:mb-6">
-                      {cat.category}
+                      {t(`category.${cat.id}`) || cat.category}
                     </h3>
                     <p className="text-xs md:text-lg text-gray-500 font-medium leading-relaxed">
                       {cat.description}
@@ -209,6 +211,9 @@ export default function ServicesRedefined() {
                         className="object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                      <div className="absolute bottom-4 left-4">
+                        <span className="text-white text-[10px] font-bold uppercase tracking-widest opacity-80">{t('services.explore')}</span>
+                      </div>
                     </div>
                   </div>
 
@@ -253,7 +258,7 @@ export default function ServicesRedefined() {
                           <div className="flex items-center justify-center w-8 h-8 md:w-12 md:h-12 rounded-full border border-gray-200 group-hover:border-[#1D6FE8] group-hover:bg-[#1D6FE8] transition-all duration-300 shadow-sm overflow-hidden">
                             <div className="relative w-full h-full flex items-center justify-center">
                               <span className="text-[8px] md:text-[9px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-white transition-all duration-300">
-                                Book
+                                {t('services.book_button')}
                               </span>
                             </div>
                           </div>
@@ -270,7 +275,7 @@ export default function ServicesRedefined() {
                          }}
                          className="w-full py-4 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-[#1A1A1A] transition-colors"
                        >
-                         Next: {servicesData[(idx + 1) % servicesData.length].category}
+                         {t('services.next_category')}: {t(`category.${servicesData[(idx + 1) % servicesData.length].id}`) || servicesData[(idx + 1) % servicesData.length].category}
                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                        </button>
                     </div>
@@ -282,24 +287,20 @@ export default function ServicesRedefined() {
         </div>
       </div>
 
-      {/* BOOKING POLICY */}
-      <div className="max-w-[1400px] mx-auto mt-32 md:mt-40 px-5 md:px-12 lg:px-16 pb-20">
-        <div className="bg-gray-100 border border-gray-200 rounded-2xl p-10 md:p-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-[#1D6FE8] mb-4">Crucial Information</h4>
-            <p className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1A1A1A]">Booking Policy</p>
-          </div>
-          <div className="max-w-md">
-            <p className="text-sm md:text-base font-medium text-gray-500 leading-relaxed">
-              A{' '}
-              <span className="text-[#1A1A1A] font-bold underline decoration-2 underline-offset-4">
-                CA$15 non-refundable deposit
-              </span>{' '}
-              is required to secure your booking. Appointments are unconfirmed until the deposit is received.
-            </p>
-          </div>
-        </div>
-      </div>
+       {/* BOOKING POLICY */}
+       <div className="max-w-[1400px] mx-auto mt-32 md:mt-40 px-5 md:px-12 lg:px-16 pb-20">
+         <div className="bg-gray-100 border border-gray-200 rounded-2xl p-10 md:p-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
+           <div>
+             <h4 className="text-xs font-bold uppercase tracking-[0.3em] text-[#1D6FE8] mb-4">{t('services.crucial_info') || 'Crucial Information'}</h4>
+             <p className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1A1A1A]">{t('services.policy_title')}</p>
+           </div>
+           <div className="max-w-md">
+             <p className="text-sm md:text-base font-medium text-gray-500 leading-relaxed">
+               {t('services.policy_desc')}
+             </p>
+           </div>
+         </div>
+       </div>
     </section>
   );
 }

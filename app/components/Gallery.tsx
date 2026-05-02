@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import { Play, Camera, Film } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const allPhotos = [
   { id: 1, type: 'photo', src: '/jpeg/salon-full-view.jpeg', alt: 'Studio Panorama', label: 'Space' },
@@ -36,6 +37,7 @@ const allVideos = [
 ];
 
 const Gallery = () => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'photos' | 'videos'>('photos');
   const items = activeTab === 'photos' ? allPhotos : allVideos;
 
@@ -47,7 +49,7 @@ const Gallery = () => {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-16 md:mb-24">
           <div className="max-w-2xl">
             <h2 className="text-5xl md:text-8xl font-black text-[#1A1A1A] tracking-tighter leading-[0.85] uppercase mb-10">
-              The {activeTab === 'photos' ? 'Work' : 'Motion'}
+              {activeTab === 'photos' ? t('gallery.work') : t('gallery.motion')}
             </h2>
             
             {/* Premium Filter Switcher */}
@@ -55,12 +57,12 @@ const Gallery = () => {
                <FilterButton 
                  active={activeTab === 'photos'} 
                  onClick={() => setActiveTab('photos')}
-                 label="Pictures"
+                 label={t('gallery.pictures')}
                />
                <FilterButton 
                  active={activeTab === 'videos'} 
                  onClick={() => setActiveTab('videos')}
-                 label="Videos"
+                 label={t('gallery.videos')}
                />
             </div>
           </div>
@@ -68,8 +70,8 @@ const Gallery = () => {
           <div className="hidden lg:block text-right max-w-xs">
              <p className="text-sm font-semibold text-gray-400 leading-relaxed italic">
                {activeTab === 'photos' 
-                 ? "A curated collection of our finest cuts, atmosphere, and the craft behind every visit." 
-                 : "Cinematic glimpses into the precision and energy of our studio sessions."}
+                 ? t('gallery.photos_desc') 
+                 : t('gallery.videos_desc')}
              </p>
           </div>
         </div>

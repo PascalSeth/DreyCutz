@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useLanguage } from '../context/LanguageContext';
 
 const BLUE = '#1D6FE8';
 const BLUEL = '#4D8FFF';
@@ -10,6 +11,7 @@ const NAME_LETTERS = ['D', 'R', 'E', 'Y', 'C', 'U', 'T', 'Z'];
 const STUDIO_LETTERS = ['S', 'T', 'U', 'D', 'I', 'O'];
 
 function Hero() {
+    const { t } = useLanguage();
     const [loaded, setLoaded] = useState(false);
     const [isSpun, setIsSpun] = useState(false);
     useEffect(() => { setLoaded(true); }, []);
@@ -94,7 +96,7 @@ function Hero() {
                         style={{ marginBottom: 'clamp(0.5rem,1.5vh,1.1rem)', opacity: 0, animation: anim('dcSlideX', '0.6s', '0.4s') }}>
                         <div className="h-[2px] rounded-sm flex-shrink-0" style={{ width: 26, background: BLUE }} />
                         <span className="font-bold uppercase tracking-[0.35em]" style={{ fontSize: 10, color: BLUE }}>
-                            Premium Barber Studio
+                            {t('hero.eyebrow')}
                         </span>
                     </div>
 
@@ -105,7 +107,7 @@ function Hero() {
                             marginBottom: 'clamp(0.08rem, 0.4vh, 0.3rem)', opacity: 0,
                             animation: anim('dcFade', '0.5s', '0.55s')
                         }}>
-                        Welcome to
+                        {t('hero.welcome')}
                     </span>
 
                     {/* DREYCUTZ — per-letter */}
@@ -153,7 +155,7 @@ function Hero() {
                             marginBottom: 'clamp(0.9rem, 2vh, 1.5rem)', opacity: 0,
                             animation: anim('dcFade', '0.5s', '1.20s')
                         }}>
-                        Premium cuts, sharp lines, and professional grooming in Montreal.
+                        {t('hero.subtext')}
                     </p>
 
                     {/* Buttons */}
@@ -176,7 +178,7 @@ function Hero() {
                                 onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = BLUEL; b.style.borderColor = BLUEL; b.style.transform = 'translateY(-2px)'; b.style.boxShadow = '0 10px 30px rgba(29,111,232,0.55)'; }}
                                 onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = BLUE; b.style.borderColor = BLUE; b.style.transform = ''; b.style.boxShadow = '0 0 22px rgba(29,111,232,0.32)'; }}
                             >
-                                Book Appointment
+                                {t('hero.cta_book')}
                                 <span className="flex transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
                                     <svg width="13" height="13" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
                                         <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
@@ -196,7 +198,7 @@ function Hero() {
                             onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = BLUE; b.style.color = BLUEL; }}
                             onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = 'rgba(255,255,255,0.14)'; b.style.color = 'rgba(255,255,255,0.40)'; }}
                         >
-                            View Services
+                            {t('hero.cta_services')}
                         </button>
 
                         {/* Mobile-only Quick Call Pill */}
@@ -210,7 +212,7 @@ function Hero() {
                             <svg width="12" height="12" fill="none" stroke={BLUE} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
                                 <path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.595-5.2-3.9-6.794-6.794l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                             </svg>
-                            Call Us
+                            {t('hero.cta_call')}
                         </a>
                     </div>
                 </div>
@@ -238,10 +240,10 @@ function Hero() {
 
                         {/* Logo Image with 2D Spin and Crossfade */}
                         <div className="relative z-10 w-[85%] h-[85%] cursor-pointer group" style={{ WebkitTapHighlightColor: 'transparent' }} onClick={() => setIsSpun(!isSpun)}>
-                            <div className={`w-full h-full transition-transform duration-[1200ms] ease-in-out group-hover:rotate-[360deg] ${isSpun ? 'rotate-[360deg]' : 'rotate-0'}`}>
+                            <div className={`w-full h-full transition-transform duration-[1200ms] ease-in-out md:group-hover:rotate-[360deg] ${isSpun ? 'rotate-[360deg]' : 'rotate-0'}`}>
                                 
                                 {/* Base Logo (logo-whites.png) */}
-                                <div className={`absolute inset-0 transition-opacity duration-[1000ms] ease-in-out group-hover:opacity-0 ${isSpun ? 'opacity-0' : 'opacity-100'}`}>
+                                <div className={`absolute inset-0 transition-opacity duration-[1000ms] ease-in-out md:group-hover:opacity-0 ${isSpun ? 'opacity-0' : 'opacity-100'}`}>
                                     <Image
                                         src="/logo-whites.png"
                                         alt="DreyCutz logo white"
@@ -254,7 +256,7 @@ function Hero() {
                                 </div>
 
                                 {/* Hover Logo (logo.png) */}
-                                <div className={`absolute inset-0 rounded-full overflow-hidden transition-opacity duration-[1000ms] ease-in-out group-hover:opacity-100 ${isSpun ? 'opacity-100' : 'opacity-0'}`}>
+                                <div className={`absolute inset-0 rounded-full overflow-hidden transition-opacity duration-[1000ms] ease-in-out md:group-hover:opacity-100 ${isSpun ? 'opacity-100' : 'opacity-0'}`}>
                                     <Image
                                         src="/logo.png"
                                         alt="DreyCutz logo hover"
@@ -287,17 +289,17 @@ function Hero() {
 
                 <BarCell divider>
                     <BarIcon><svg width="12" height="12" fill="none" stroke={BLUEL} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg></BarIcon>
-                    <div className="overflow-hidden"><BarLabel>DreyCutz Salon</BarLabel><BarVal>2025 Rue Bélanger, Montréal QC H2E 2N8</BarVal></div>
+                    <div className="overflow-hidden"><BarLabel>{t('hero.info_address_label')}</BarLabel><BarVal>2025 Rue Bélanger, Montréal QC H2E 2N8</BarVal></div>
                 </BarCell>
 
                 <BarCell divider>
                     <BarIcon><svg width="12" height="12" fill="none" stroke={BLUEL} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.595-5.2-3.9-6.794-6.794l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg></BarIcon>
-                    <div><BarLabel>Call Us</BarLabel><BarVal><a href="tel:4382219349" className="hover:text-white transition-colors duration-200">(438)-221-9349</a></BarVal></div>
+                    <div><BarLabel>{t('hero.cta_call')}</BarLabel><BarVal><a href="tel:4382219349" className="hover:text-white transition-colors duration-200">(438)-221-9349</a></BarVal></div>
                 </BarCell>
 
                 <BarCell>
                     <BarIcon><svg width="12" height="12" fill="none" stroke={BLUEL} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 6v6l4 2" /></svg></BarIcon>
-                    <div><BarLabel>Hours</BarLabel><BarVal>Mon – Sat&nbsp;9am – 7pm</BarVal></div>
+                    <div><BarLabel>{t('hero.info_hours_label')}</BarLabel><BarVal>{t('hero.info_hours_val')}</BarVal></div>
                 </BarCell>
             </div>
         </section>

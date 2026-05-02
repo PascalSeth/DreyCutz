@@ -13,44 +13,46 @@ import {
   Users, 
   Flame 
 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Values = () => {
+  const { t } = useLanguage();
   return (
     <section id="values" className="relative py-24 md:py-32 px-5 md:px-12 lg:px-16 bg-transparent">
       
       {/* ── SECTION 1: THE DIFFERENCE ─────────────────────────────────────── */}
       <div className="max-w-[1200px] mx-auto mb-32 md:mb-48">
         <div className="text-center mb-16 md:mb-24">
-          <p className="text-xs font-bold uppercase tracking-[0.4em] text-blue-600 mb-4">Why DreyCutz</p>
+          <p className="text-xs font-bold uppercase tracking-[0.4em] text-blue-600 mb-4">{t('values.diff_eyebrow')}</p>
           <h2 className="text-4xl md:text-6xl font-black text-[#1A1A1A] tracking-tight uppercase mb-6">
-            The New Standard
+            {t('values.diff_title')}
           </h2>
           <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full mb-8" />
           <p className="max-w-2xl mx-auto text-base md:text-lg text-gray-500 font-medium leading-relaxed">
-            We've redesigned the grooming ritual. No wait times, no compromises, just pure craft tailored to your lifestyle.
+            {t('values.diff_desc')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           <DifferenceCard 
             icon={<Clock className="w-6 h-6" />}
-            title="Time-Saving"
-            description="No wait times. Every session is reserved exclusively for you, ensuring punctuality."
+            title={t('values.card.time_title')}
+            description={t('values.card.time_desc')}
           />
           <DifferenceCard 
             icon={<Scissors className="w-6 h-6" />}
-            title="Expert Skill"
-            description="Combining classic technique with modern artistry for a flawless finish."
+            title={t('values.card.skill_title')}
+            description={t('values.card.skill_desc')}
           />
           <DifferenceCard 
             icon={<UserCheck className="w-6 h-6" />}
-            title="Customized"
-            description="Your bone structure dictates the cut. We design for the individual."
+            title={t('values.card.custom_title')}
+            description={t('values.card.custom_desc')}
           />
           <DifferenceCard 
             icon={<Wind className="w-6 h-6" />}
-            title="Relaxing"
-            description="A calm, curated environment designed to let you recharge while we refine."
+            title={t('values.card.relax_title')}
+            description={t('values.card.relax_desc')}
           />
         </div>
       </div>
@@ -58,9 +60,9 @@ const Values = () => {
       {/* ── SECTION 2: OUR VALUES ─────────────────────────────────────────── */}
       <div className="max-w-[1200px] mx-auto">
         <div className="text-center mb-16 md:mb-24">
-          <p className="text-xs font-bold uppercase tracking-[0.4em] text-blue-600 mb-4">Core Values</p>
+          <p className="text-xs font-bold uppercase tracking-[0.4em] text-blue-600 mb-4">{t('values.core_eyebrow')}</p>
           <h2 className="text-4xl md:text-6xl font-black text-[#1A1A1A] tracking-tight uppercase mb-6">
-            What We Believe In
+            {t('values.core_title')}
           </h2>
           <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full" />
         </div>
@@ -68,33 +70,33 @@ const Values = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 md:gap-x-12 md:gap-y-16">
           <ValueItem 
             icon={<Target />}
-            title="Precision"
-            description="Measure twice, cut once. We obsess over the micro-details so the macro-result is flawless."
+            title={t('values.val.precision_title')}
+            description={t('values.val.precision_desc')}
           />
           <ValueItem 
             icon={<Heart />}
-            title="Respect"
-            description="Your time is sacred. Your trust is earned. We treat every client with the utmost dignity."
+            title={t('values.val.respect_title')}
+            description={t('values.val.respect_desc')}
           />
           <ValueItem 
             icon={<ShieldCheck />}
-            title="Integrity"
-            description="Transparent pricing and honest advice. If a style doesn't suit you, we'll tell you."
+            title={t('values.val.integrity_title')}
+            description={t('values.val.integrity_desc')}
           />
           <ValueItem 
             icon={<Star />}
-            title="Excellence"
-            description="Good is the enemy of great. We push the boundaries of the craft every single day."
+            title={t('values.val.excellence_title')}
+            description={t('values.val.excellence_desc')}
           />
           <ValueItem 
             icon={<Users />}
-            title="Community"
-            description="A space where everyone belongs. More than a studio, we're a neighborhood hub."
+            title={t('values.val.community_title')}
+            description={t('values.val.community_desc')}
           />
           <ValueItem 
             icon={<Flame />}
-            title="Passion"
-            description="This isn't a job—it's an obsession. We live and breathe the art of the cut."
+            title={t('values.val.passion_title')}
+            description={t('values.val.passion_desc')}
           />
         </div>
       </div>

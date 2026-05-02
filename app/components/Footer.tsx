@@ -3,20 +3,22 @@
 import React from 'react';
 import { Mail, MapPin, Phone, ArrowUpRight } from 'lucide-react';
 import { FaInstagram, FaFacebookF } from 'react-icons/fa6';
+import { useLanguage } from '../context/LanguageContext';
 
 const Footer = () => {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { name: 'Home', href: '#' },
-    { name: 'Our Services', href: '#services' },
-    { name: 'Gallery', href: '#gallery' },
-    { name: 'WHY BOOK WITH US', href: '#values' },
-    { name: 'About Us', href: '#about' },
-    { name: 'Satisfied Customers', href: '#reviews' },
-    { name: 'FAQ', href: '#info' },
-    { name: 'Careers', href: '#careers' },
-    { name: 'Contact', href: '#booking' },
+    { name: t('footer.link.home'), href: '#' },
+    { name: t('footer.link.services'), href: '#services' },
+    { name: t('footer.link.gallery'), href: '#gallery' },
+    { name: t('footer.link.why_book'), href: '#values' },
+    { name: t('footer.link.about'), href: '#about' },
+    { name: t('footer.link.customers'), href: '#reviews' },
+    { name: t('footer.link.faq'), href: '#info' },
+    { name: t('footer.link.careers'), href: '#careers' },
+    { name: t('footer.link.contact'), href: '#booking' },
   ];
 
   return (
@@ -34,7 +36,7 @@ const Footer = () => {
             <div>
               <h3 className="text-3xl font-black tracking-tighter uppercase italic mb-6">Drey<span className="text-blue-600">Cutz</span></h3>
               <p className="text-gray-400 font-medium leading-relaxed max-w-xs">
-                Premium barbershop in Montreal. Sharp cuts, clean lines, and professional grooming by Drey.
+                {t('footer.tagline')}
               </p>
             </div>
             <div className="flex gap-4">
@@ -46,7 +48,7 @@ const Footer = () => {
 
           {/* Column 2: Quick Links */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.4em] text-blue-500 mb-10">Quick Links</h4>
+            <h4 className="text-xs font-bold uppercase tracking-[0.4em] text-blue-500 mb-10">{t('footer.quick_links')}</h4>
             <ul className="grid grid-cols-1 gap-y-4">
               {quickLinks.map((link) => (
                 <li key={link.name}>
@@ -63,7 +65,7 @@ const Footer = () => {
 
           {/* Column 3: Contact */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.4em] text-blue-500 mb-10">Contact</h4>
+            <h4 className="text-xs font-bold uppercase tracking-[0.4em] text-blue-500 mb-10">{t('footer.contact')}</h4>
             <div className="space-y-8">
               <div className="flex items-start gap-4 group">
                 <Phone className="text-blue-600 mt-1 shrink-0 group-hover:scale-110 transition-transform" size={20} />
@@ -89,7 +91,7 @@ const Footer = () => {
 
           {/* Column 4: Hours */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.4em] text-blue-500 mb-10">Hours</h4>
+            <h4 className="text-xs font-bold uppercase tracking-[0.4em] text-blue-500 mb-10">{t('footer.hours')}</h4>
             <div className="space-y-6">
               <HourItem day="Mon - Fri" time="10am - 9pm" />
               <HourItem day="Saturday" time="10am - 9pm" />
@@ -110,11 +112,11 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
           <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
-            © {currentYear} DREYCUTZ STUDIO. ALL RIGHTS RESERVED.
+            © {currentYear} DREYCUTZ STUDIO. {t('footer.rights')}
           </p>
           <div className="flex gap-8">
-            <a href="#" className="text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-colors">Terms of Service</a>
+            <a href="#" className="text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-colors">{t('footer.privacy')}</a>
+            <a href="#" className="text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-colors">{t('footer.terms')}</a>
           </div>
 
         </div>

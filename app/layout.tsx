@@ -29,6 +29,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { LanguageProvider } from "./context/LanguageContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,13 +42,15 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar />
-        <GlobalBackground />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <BookingModal />
+        <LanguageProvider>
+          <Navbar />
+          <GlobalBackground />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <BookingModal />
+        </LanguageProvider>
       </body>
     </html>
   );

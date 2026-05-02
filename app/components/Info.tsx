@@ -11,52 +11,54 @@ import {
   ShieldCheck,
   AlertCircle
 } from 'lucide-react';
-
-const faqs = [
-  {
-    id: 'payment',
-    icon: (size: number) => <CreditCard size={size} />,
-    question: "Payment Methods",
-    answer: (
-      <div className="space-y-4">
-        <div className="flex items-center gap-3 text-sm font-black text-[#1A1A1A] uppercase tracking-tight">
-          <CheckCircle2 size={16} className="text-green-500" />
-          Interac E-Transfer
-        </div>
-        <div className="flex items-center gap-3 text-sm font-black text-[#1A1A1A] uppercase tracking-tight">
-          <CheckCircle2 size={16} className="text-green-500" />
-          Cash (In-Studio)
-        </div>
-        <p className="text-[11px] font-bold text-gray-400 mt-6 leading-relaxed uppercase tracking-widest">
-          A non-refundable deposit is required at the time of booking via E-Transfer.
-        </p>
-      </div>
-    )
-  },
-  {
-    id: 'booking',
-    icon: (size: number) => <CalendarClock size={size} />,
-    question: "Booking Policy",
-    answer: (
-      <p className="text-sm font-semibold text-gray-500 leading-relaxed">
-        All appointments must be scheduled through our online portal. Your spot is only confirmed once the <span className="text-[#1A1A1A] font-black">CA$15 deposit</span> is received.
-      </p>
-    )
-  },
-  {
-    id: 'late',
-    icon: (size: number) => <Timer size={size} />,
-    question: "Late Policy",
-    answer: (
-      <p className="text-sm font-semibold text-gray-500 leading-relaxed">
-        We value your time. If you are more than <span className="text-[#1A1A1A] font-black underline decoration-orange-500 decoration-2">15 minutes late</span>, your appointment may be cancelled to stay on schedule for other clients.
-      </p>
-    )
-  }
-];
+import { useLanguage } from '../context/LanguageContext';
 
 const Info = () => {
+  const { t } = useLanguage();
   const [openId, setOpenId] = useState<string | null>('payment');
+
+  const faqs = [
+    {
+      id: 'payment',
+      icon: (size: number) => <CreditCard size={size} />,
+      question: t('info.faq_payment_title'),
+      answer: (
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 text-sm font-black text-[#1A1A1A] uppercase tracking-tight">
+            <CheckCircle2 size={16} className="text-green-500" />
+            {t('info.faq_payment_interac')}
+          </div>
+          <div className="flex items-center gap-3 text-sm font-black text-[#1A1A1A] uppercase tracking-tight">
+            <CheckCircle2 size={16} className="text-green-500" />
+            {t('info.faq_payment_cash')}
+          </div>
+          <p className="text-[11px] font-bold text-gray-400 mt-6 leading-relaxed uppercase tracking-widest">
+            {t('info.faq_payment_note')}
+          </p>
+        </div>
+      )
+    },
+    {
+      id: 'booking',
+      icon: (size: number) => <CalendarClock size={size} />,
+      question: t('info.faq_booking_title'),
+      answer: (
+        <p className="text-sm font-semibold text-gray-500 leading-relaxed">
+          {t('info.faq_booking_answer')}
+        </p>
+      )
+    },
+    {
+      id: 'late',
+      icon: (size: number) => <Timer size={size} />,
+      question: t('info.faq_late_title'),
+      answer: (
+        <p className="text-sm font-semibold text-gray-500 leading-relaxed">
+          {t('info.faq_late_answer')}
+        </p>
+      )
+    }
+  ];
 
   return (
     <section id="info" className="relative py-24 md:py-32 bg-transparent overflow-hidden">
@@ -64,9 +66,9 @@ const Info = () => {
         
         {/* Header */}
         <div className="mb-16 md:mb-24">
-          <p className="text-xs font-bold tracking-[0.4em] uppercase text-blue-600 mb-6">Frequently Asked Questions</p>
+          <p className="text-xs font-bold tracking-[0.4em] uppercase text-blue-600 mb-6">{t('info.eyebrow')}</p>
           <h2 className="text-5xl md:text-8xl font-black text-[#1A1A1A] tracking-tighter leading-[0.85] uppercase">
-            Essential <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-300 to-gray-500">Information</span>
+            {t('info.title_part1')} <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-300 to-gray-500">{t('info.title_information')}</span>
           </h2>
         </div>
 

@@ -2,14 +2,16 @@
 
 import React, { useState } from 'react';
 import { ArrowRight, ArrowLeft, Upload, CheckCircle2 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Careers = () => {
+  const { t } = useLanguage();
   const [view, setView] = useState<'positions' | 'apply'>('positions');
   const [selectedPosition, setSelectedPosition] = useState('');
 
   const positions = [
-    { title: "Barber", type: "Full-time / Part-time", desc: "Experienced barber with strong fading and styling skills. Must be professional, punctual, and client-focused." },
-    { title: "Braider", type: "Part-time", desc: "Skilled braider available Wednesday to Sunday. Creative styling and attention to detail required." },
+    { title: t('category.barbering'), type: "Full-time / Part-time", desc: t('about.p2').slice(0, 150) + "..." },
+    { title: t('category.braiding').split(' & ')[0], type: "Part-time", desc: t('about.quote') },
   ];
 
   const handleApplyClick = (position: string) => {
@@ -24,14 +26,13 @@ const Careers = () => {
 
         {/* Centered Header */}
         <div className="text-center mb-16 md:mb-24">
-          <p className="text-xs md:text-sm font-bold uppercase tracking-[0.4em] text-blue-600 mb-4">Join Our Team</p>
+          <p className="text-xs md:text-sm font-bold uppercase tracking-[0.4em] text-blue-600 mb-4">{t('careers.eyebrow')}</p>
           <h2 className="text-4xl md:text-6xl font-black text-[#1A1A1A] tracking-tight uppercase mb-6">
-            Careers at DREYCUTZ
+            {t('careers.title')}
           </h2>
           <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full mb-8" />
           <p className="max-w-2xl mx-auto text-base md:text-lg text-gray-500 font-medium leading-relaxed">
-            We're always looking for talented, passionate individuals to join the DREYCUTZ family.
-            If you're skilled, creative, and dedicated to your craft, we want to hear from you.
+            {t('careers.desc')}
           </p>
         </div>
 
@@ -54,7 +55,7 @@ const Careers = () => {
                   onClick={() => handleApplyClick(pos.title)}
                   className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-lg text-sm font-bold uppercase tracking-widest hover:bg-blue-700 transition-all duration-300 w-full md:w-fit group-hover:shadow-[0_10px_20px_rgba(29,111,232,0.3)]"
                 >
-                  Apply Now <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
+                  {t('careers.apply_now')} <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
                 </button>
               </div>
             ))}
@@ -65,11 +66,11 @@ const Careers = () => {
               onClick={() => setView('positions')}
               className="flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-[#1A1A1A] transition-colors mb-6 group"
             >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" /> Back to Positions
+              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" /> {t('careers.back')}
             </button>
 
             <div className="bg-white border border-gray-100 rounded-[1.5rem] p-6 md:p-10 shadow-[0_15px_60px_rgba(0,0,0,0.05)]">
-              <h3 className="text-2xl font-black text-[#1A1A1A] mb-8 uppercase tracking-tight">Career Application</h3>
+              <h3 className="text-2xl font-black text-[#1A1A1A] mb-8 uppercase tracking-tight">{t('careers.form_title')}</h3>
 
               <form className="space-y-6" onSubmit={(e) => {
                 e.preventDefault();
@@ -79,19 +80,19 @@ const Careers = () => {
               }}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="space-y-1.5">
-                    <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">Full Name *</label>
+                    <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">{t('careers.full_name')} *</label>
                     <input name="name" required type="text" className="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all placeholder:text-gray-400" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">Email *</label>
+                    <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">{t('careers.email')} *</label>
                     <input name="email" required type="email" placeholder="your@email.com" className="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all placeholder:text-gray-400" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">Phone *</label>
+                    <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">{t('careers.phone')} *</label>
                     <input name="phone" required type="tel" placeholder="438-XXX-XXXX" className="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all placeholder:text-gray-400" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">Position *</label>
+                    <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">{t('careers.position')} *</label>
                     <div className="relative">
                       <select name="position" required defaultValue={selectedPosition} className="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all appearance-none cursor-pointer">
                         <option value="Barber">Barber (Full-time / Part-time)</option>
@@ -108,33 +109,33 @@ const Careers = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">Address *</label>
+                  <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">{t('careers.address')} *</label>
                   <input name="address" required type="text" placeholder="123 Street Name, City, Province" className="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all placeholder:text-gray-400" />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">Experience & Skills (Optional)</label>
-                  <textarea name="experience" rows={3} placeholder="Tell us about your experience, skills, and availability..." className="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all resize-none placeholder:text-gray-400"></textarea>
+                  <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">{t('careers.experience')}</label>
+                  <textarea name="experience" rows={3} placeholder="..." className="w-full px-5 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all resize-none placeholder:text-gray-400"></textarea>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="space-y-2">
-                    <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">Resume (PDF, DOC)</label>
+                    <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">{t('careers.resume')}</label>
                     <div className="relative group cursor-pointer">
                       <input type="file" className="absolute inset-0 opacity-0 cursor-pointer z-10" />
                       <div className="w-full py-5 border-2 border-dashed border-gray-200 rounded-lg flex flex-col items-center justify-center gap-1 group-hover:border-blue-600 group-hover:bg-blue-50/30 transition-all">
                         <Upload className="w-5 h-5 text-gray-500 group-hover:text-blue-600" />
-                        <span className="text-[10px] font-bold text-gray-600">Click to browse</span>
+                        <span className="text-[10px] font-bold text-gray-600">{t('careers.browse')}</span>
                       </div>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">Supporting Docs (Optional)</label>
+                    <label className="text-[9px] font-bold uppercase tracking-widest text-gray-500">{t('careers.supporting_docs')}</label>
                     <div className="relative group cursor-pointer">
                       <input type="file" multiple className="absolute inset-0 opacity-0 cursor-pointer z-10" />
                       <div className="w-full py-5 border-2 border-dashed border-gray-200 rounded-lg flex flex-col items-center justify-center gap-1 group-hover:border-blue-600 group-hover:bg-blue-50/30 transition-all">
                         <Upload className="w-5 h-5 text-gray-500 group-hover:text-blue-600" />
-                        <span className="text-[10px] font-bold text-gray-600">Click to browse</span>
+                        <span className="text-[10px] font-bold text-gray-600">{t('careers.browse')}</span>
                       </div>
                     </div>
                   </div>
@@ -143,12 +144,12 @@ const Careers = () => {
                 <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-4 flex items-start gap-3">
                   <InfoIcon className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                   <p className="text-[10px] font-semibold text-blue-800 leading-relaxed">
-                    Application opens in your email app. Don't forget to attach files.
+                    {t('careers.info_note')}
                   </p>
                 </div>
 
                 <button type="submit" className="w-full py-4 bg-blue-600 text-white rounded-lg text-xs font-black uppercase tracking-[0.2em] hover:bg-blue-700 transition-all duration-300 shadow-[0_10px_30px_rgba(29,111,232,0.3)]">
-                  Submit Application
+                  {t('careers.submit')}
                 </button>
               </form>
             </div>
@@ -158,7 +159,7 @@ const Careers = () => {
         {/* Portfolio Invitation */}
         {view === 'positions' && (
           <div className="mt-20 text-center animate-in fade-in slide-in-from-bottom-2 duration-700">
-            <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Send your resume and portfolio to:</p>
+            <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">{t('careers.invitation')}</p>
             <a
               href="mailto:dreyvibez1@gmail.com"
               className="text-lg md:text-xl font-black text-[#1A1A1A] hover:text-blue-600 transition-colors border-b-2 border-gray-100 hover:border-blue-600 pb-1"

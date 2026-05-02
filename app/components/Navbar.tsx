@@ -2,19 +2,21 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useLanguage } from '../context/LanguageContext';
 
 function Navbar() {
+    const { language, setLanguage, t } = useLanguage();
     const [activeLink, setActiveLink] = useState('Home');
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const navLinks = [
-        { name: 'Home', href: '#' },
-        { name: 'Services', href: '#services' },
-        { name: 'About', href: '#about' },
-        { name: 'Gallery', href: '#gallery' },
-        { name: 'Reviews', href: '#reviews' },
-        { name: 'Contact', href: '#booking' }
+        { name: t('nav.home') || 'Home', href: '#' },
+        { name: t('nav.services'), href: '#services' },
+        { name: t('nav.about'), href: '#about' },
+        { name: t('nav.gallery'), href: '#gallery' },
+        { name: t('nav.reviews'), href: '#reviews' },
+        { name: t('nav.contact'), href: '#booking' }
     ];
 
     // Handle scroll shrinking effect and active section detection
@@ -179,9 +181,25 @@ function Navbar() {
                             ? 'px-5 py-2 text-[10px] bg-[#1A1A1A] text-white'
                             : 'px-6 py-2.5 text-[11px] bg-white text-black'
                             }`}>
-                            <span className="relative z-10">Book Now</span>
+                            <span className="relative z-10">{t('nav.booking')}</span>
                             <div className="absolute inset-0 bg-[#1D6FE8] translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                         </button>
+
+                        {/* Language Switcher */}
+                        <div className="flex items-center gap-1.5 p-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+                           <button 
+                             onClick={() => setLanguage('en')}
+                             className={`px-2 py-1 rounded-full text-[9px] font-black uppercase transition-all duration-300 ${language === 'en' ? 'bg-[#1D6FE8] text-white shadow-lg' : 'text-gray-400 hover:text-white'}`}
+                           >
+                             EN
+                           </button>
+                           <button 
+                             onClick={() => setLanguage('fr')}
+                             className={`px-2 py-1 rounded-full text-[9px] font-black uppercase transition-all duration-300 ${language === 'fr' ? 'bg-[#1D6FE8] text-white shadow-lg' : 'text-gray-400 hover:text-white'}`}
+                           >
+                             FR
+                           </button>
+                        </div>
 
                         {/* Mobile Toggle */}
                         <button

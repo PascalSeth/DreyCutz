@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { X, ChevronLeft, ChevronRight, CheckCircle2, Calendar as CalendarIcon, Clock, User, Mail, Phone, ExternalLink } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 type Step = 'date' | 'time' | 'info' | 'success';
 
@@ -24,6 +25,7 @@ const TIME_SLOTS = [
 ];
 
 export default function BookingModal() {
+  const { t, language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<Step>('date');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -92,9 +94,9 @@ export default function BookingModal() {
     setStep('success');
   };
 
-  const formatDate = (date: Date | null) => {
+   const formatDate = (date: Date | null) => {
     if (!date) return '';
-    return new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat(language === 'en' ? 'en-US' : 'fr-CA', {
       weekday: 'short',
       month: 'short',
       day: 'numeric',
@@ -160,12 +162,12 @@ export default function BookingModal() {
         <div className="px-6 md:px-8 pt-6 md:pt-8 pb-4 md:pb-6 border-b border-gray-100 flex items-center justify-between bg-white sticky top-0 z-10">
           <div>
             <h2 className="text-2xl font-black uppercase tracking-tighter text-[#1A1A1A]">
-              {step === 'success' ? 'Booking Confirmed!' : 'Book Appointment'}
+              {step === 'success' ? t('modal.title_confirmed') : t('modal.title_booking')}
             </h2>
             <div className="flex items-center gap-2 mt-1">
               <div className={`w-2 h-2 rounded-full ${step === 'success' ? 'bg-green-500' : 'bg-[#1D6FE8] animate-pulse'}`} />
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#1D6FE8]">
-                {step !== 'success' ? bookingData.serviceName : 'Everything is ready'}
+                {step !== 'success' ? bookingData.serviceName : t('modal.ready')}
               </p>
             </div>
           </div>
@@ -173,7 +175,7 @@ export default function BookingModal() {
             onClick={closeModal}
             className="group flex items-center gap-2 px-3 py-2 rounded-full bg-gray-100 text-gray-500 hover:bg-[#1A1A1A] hover:text-white transition-all duration-300"
           >
-            <span className="text-[10px] font-bold uppercase tracking-widest pl-1 hidden sm:block">Close</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest pl-1 hidden sm:block">{t('modal.close')}</span>
             <X size={18} />
           </button>
         </div>
@@ -186,7 +188,7 @@ export default function BookingModal() {
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="mb-4 flex items-center gap-2 text-gray-400">
                 <CalendarIcon size={14} className="text-[#1D6FE8]" />
-                <span className="text-[10px] font-bold uppercase tracking-widest">Select a Date</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest">{t('modal.select_date')}</span>
               </div>
               <Calendar
                 onChange={handleDateChange}
@@ -205,12 +207,12 @@ export default function BookingModal() {
                 className="mb-4 flex items-center gap-2 text-gray-400 hover:text-[#1A1A1A] transition-colors"
               >
                 <ChevronLeft size={16} />
-                <span className="text-[10px] font-bold uppercase tracking-widest">Back to Calendar</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest">{t('modal.back_calendar')}</span>
               </button>
 
               <div className="mb-6">
                 <p className="text-sm font-bold text-[#1A1A1A]">{formatDate(bookingData.date)}</p>
-                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Select your preferred time</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">{t('modal.select_time')}</p>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -235,18 +237,18 @@ export default function BookingModal() {
                 className="mb-4 flex items-center gap-2 text-gray-400 hover:text-[#1A1A1A] transition-colors"
               >
                 <ChevronLeft size={16} />
-                <span className="text-[10px] font-bold uppercase tracking-widest">Back to Time</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest">{t('modal.back_time')}</span>
               </button>
 
               <div className="mb-6">
                 <p className="text-sm font-bold text-[#1A1A1A]">{formatDate(bookingData.date)} • {bookingData.time}</p>
-                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Complete your details</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">{t('modal.complete_details')}</p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">First Name</label>
+                   <div className="space-y-1">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">{t('modal.first_name')}</label>
                     <input
                       required
                       name="firstName"
@@ -257,7 +259,7 @@ export default function BookingModal() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">Last Name</label>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">{t('modal.last_name')}</label>
                     <input
                       required
                       name="lastName"
@@ -269,7 +271,7 @@ export default function BookingModal() {
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">Email Address</label>
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">{t('modal.email')}</label>
                   <input
                     required
                     type="email"
@@ -281,7 +283,7 @@ export default function BookingModal() {
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">Phone Number</label>
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">{t('modal.phone')}</label>
                   <input
                     required
                     type="tel"
@@ -297,7 +299,7 @@ export default function BookingModal() {
                   type="submit"
                   className="w-full mt-4 bg-[#1D6FE8] text-white font-black uppercase tracking-widest py-4 rounded-xl shadow-lg shadow-blue-200 hover:bg-[#1A1A1A] hover:shadow-gray-200 transition-all duration-300 active:scale-[0.98]"
                 >
-                  Confirm Booking
+                  {t('modal.confirm_button')}
                 </button>
               </form>
             </div>
@@ -310,9 +312,9 @@ export default function BookingModal() {
                 <CheckCircle2 size={32} />
               </div>
 
-              <div className="space-y-4 mb-8">
+               <div className="space-y-4 mb-8">
                 <p className="text-sm font-medium text-gray-600 leading-relaxed">
-                  Your appointment is reserved. Please send your <span className="font-bold text-[#1A1A1A]">CA$15 deposit</span> via Interac E-Transfer to <span className="text-[#1D6FE8] font-bold">dreyvibez1@gmail.com</span> to secure it — without the deposit, your booking may be cancelled.
+                  {t('modal.success_p1_part1')}<span className="font-bold text-[#1A1A1A]">CA$15 deposit</span>{t('modal.success_p1_part2')}<span className="text-[#1D6FE8] font-bold">dreyvibez1@gmail.com</span>{t('modal.success_p1_part3')}
                 </p>
 
                 <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100 inline-block w-full">
@@ -325,7 +327,7 @@ export default function BookingModal() {
                 </div>
 
                 <p className="text-[11px] text-gray-400 font-medium italic">
-                  A CA$15 deposit is required via Interac E-Transfer to dreyvibez1@gmail.com to confirm your appointment.
+                  {t('modal.success_note')}
                 </p>
               </div>
 
@@ -335,13 +337,13 @@ export default function BookingModal() {
                   className="flex items-center justify-center gap-2 py-4 rounded-xl border border-gray-200 text-xs font-bold text-[#1A1A1A] hover:bg-gray-50 transition-all"
                 >
                   <CalendarIcon size={14} />
-                  Add to Calendar
+                  {t('modal.add_calendar')}
                 </button>
                 <button
                   onClick={closeModal}
                   className="py-4 rounded-xl bg-[#1A1A1A] text-white text-xs font-bold uppercase tracking-widest hover:bg-[#1D6FE8] transition-all"
                 >
-                  Close
+                  {t('modal.close')}
                 </button>
               </div>
             </div>
@@ -353,9 +355,9 @@ export default function BookingModal() {
         {step !== 'success' && (
           <div className="px-6 md:px-8 py-4 md:py-6 bg-gray-50/50 border-t border-gray-100">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-[9px] font-bold uppercase tracking-widest text-gray-400">Progress</span>
+              <span className="text-[9px] font-bold uppercase tracking-widest text-gray-400">{t('modal.progress')}</span>
               <span className="text-[9px] font-bold uppercase tracking-widest text-[#1D6FE8]">
-                {step === 'date' ? 'Step 1 of 3' : step === 'time' ? 'Step 2 of 3' : 'Final Step'}
+                {step === 'date' ? t('modal.step1') : step === 'time' ? t('modal.step2') : t('modal.step3')}
               </span>
             </div>
             <div className="flex items-center gap-2">
