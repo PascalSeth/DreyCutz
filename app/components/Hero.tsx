@@ -88,11 +88,11 @@ function Hero() {
             {/*  Mobile: col-reverse → logo on top, text below
                 Desktop: row → text left, logo right              */}
             <div className="relative z-[5] flex-1 flex flex-col-reverse md:flex-row"
-                style={{ paddingTop: '84px' }}>
+                style={{ paddingTop: 'clamp(72px, 12vh, 84px)' }}>
 
                 {/* ── LEFT: TEXT ───────────────────────── */}
                 <div className="flex flex-col justify-center items-center md:items-start flex-1 min-w-0 text-center md:text-left"
-                    style={{ padding: '2rem clamp(1.5rem, 6vw, 5rem)' }}>
+                    style={{ padding: 'clamp(1rem, 5vh, 2rem) clamp(1rem, 6vw, 5rem)' }}>
 
                     {/* Eyebrow */}
                     <div className="flex items-center gap-[10px]"
@@ -115,7 +115,7 @@ function Hero() {
 
                     {/* DREYCUTZ — per-letter */}
                     <div aria-label="DREYCUTZ" style={{ lineHeight: 0.88 }}>
-                        <div className="flex" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(3rem, 9vh, 6rem)', letterSpacing: '0.02em' }}>
+                        <div className="flex" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(2.2rem, 9vh, 6rem)', letterSpacing: '0.02em' }}>
                             {NAME_LETTERS.map((l, i) => (
                                 <span key={i} style={{
                                     display: 'inline-block', color: '#fff', opacity: 0,
@@ -129,11 +129,11 @@ function Hero() {
 
                     {/* STUDIO — per-letter, outline */}
                     <div aria-label="STUDIO" style={{ lineHeight: 0.88, marginBottom: 'clamp(0.6rem,1.6vh,1.2rem)' }}>
-                        <div className="flex" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(3rem, 9vh, 6rem)', letterSpacing: '0.02em' }}>
+                        <div className="flex" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(2.2rem, 9vh, 6rem)', letterSpacing: '0.02em' }}>
                             {STUDIO_LETTERS.map((l, i) => (
                                 <span key={i} style={{
                                     display: 'inline-block', color: 'transparent',
-                                    WebkitTextStroke: `2px ${BLUE}`, opacity: 0,
+                                    WebkitTextStroke: `clamp(1px, 0.4vw, 2px) ${BLUE}`, opacity: 0,
                                     animation: loaded ? `dcLetterIn 0.55s cubic-bezier(0.16,1,0.3,1) ${0.72 + i * 0.055}s forwards` : 'none'
                                 }}>
                                     {l}
@@ -162,8 +162,8 @@ function Hero() {
                     </p>
 
                     {/* Buttons */}
-                    <div className="flex flex-wrap items-center gap-3"
-                        style={{ opacity: 0, animation: anim('dcFade', '0.5s', '1.30s') }}>
+                    <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 w-full sm:w-auto"
+                        style={{ opacity: 0, animation: anim('dcFade', '0.5s', '1.30s'), marginBottom: '2rem' }}>
                         <div className="relative inline-flex">
                             {loaded && (
                                 <div className="absolute inset-0 rounded-[4px] pointer-events-none"
@@ -173,10 +173,10 @@ function Hero() {
                                 className="group relative flex items-center gap-2 cursor-pointer rounded-[4px] whitespace-nowrap font-bold uppercase transition-all duration-200"
                                 aria-label="Book an appointment"
                                 style={{
-                                    height: 42, padding: '0 1.7rem', background: BLUE,
-                                    border: `2px solid ${BLUE}`, fontSize: 9, letterSpacing: '0.22em',
+                                    height: 42, padding: '0 1.2rem', background: BLUE,
+                                    border: `2px solid ${BLUE}`, fontSize: 8.5, letterSpacing: '0.15em',
                                     color: '#fff', boxShadow: `0 0 22px rgba(29,111,232,0.32)`,
-                                    fontFamily: "'Montserrat', sans-serif"
+                                    fontFamily: "'Montserrat', sans-serif", width: '100%', minWidth: '220px'
                                 }}
                                 onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = BLUEL; b.style.borderColor = BLUEL; b.style.transform = 'translateY(-2px)'; b.style.boxShadow = '0 10px 30px rgba(29,111,232,0.55)'; }}
                                 onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.background = BLUE; b.style.borderColor = BLUE; b.style.transform = ''; b.style.boxShadow = '0 0 22px rgba(29,111,232,0.32)'; }}
@@ -193,10 +193,10 @@ function Hero() {
                         <button
                             className="cursor-pointer rounded-[4px] whitespace-nowrap font-semibold uppercase transition-all duration-200"
                             style={{
-                                height: 42, padding: '0 1.5rem', background: 'transparent',
-                                border: '2px solid rgba(255,255,255,0.14)', fontSize: 9,
-                                letterSpacing: '0.22em', color: 'rgba(255,255,255,0.40)',
-                                fontFamily: "'Montserrat', sans-serif"
+                                height: 42, padding: '0 1.2rem', background: 'transparent',
+                                border: '2px solid rgba(255,255,255,0.14)', fontSize: 8.5,
+                                letterSpacing: '0.15em', color: 'rgba(255,255,255,0.40)',
+                                fontFamily: "'Montserrat', sans-serif", width: '100%', minWidth: '220px'
                             }}
                             onMouseEnter={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = BLUE; b.style.color = BLUEL; }}
                             onMouseLeave={e => { const b = e.currentTarget as HTMLButtonElement; b.style.borderColor = 'rgba(255,255,255,0.14)'; b.style.color = 'rgba(255,255,255,0.40)'; }}
@@ -207,9 +207,9 @@ function Hero() {
                         {/* Mobile-only Quick Call Pill */}
                         <a href="tel:4382219349" className="md:hidden flex items-center gap-2 cursor-pointer rounded-[4px] whitespace-nowrap font-semibold uppercase transition-all duration-200 hover:bg-white/5"
                             style={{
-                                height: 42, padding: '0 1.5rem', background: 'transparent',
-                                border: '1px solid rgba(255,255,255,0.08)', fontSize: 9,
-                                letterSpacing: '0.22em', color: '#fff',
+                                height: 42, padding: '0 1.2rem', background: 'transparent',
+                                border: '1px solid rgba(255,255,255,0.08)', fontSize: 8.5,
+                                letterSpacing: '0.15em', color: '#fff',
                                 fontFamily: "'Montserrat', sans-serif"
                             }}>
                             <svg width="12" height="12" fill="none" stroke={BLUE} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
@@ -222,7 +222,7 @@ function Hero() {
 
                 {/* ── RIGHT: LOGO ──────────────────────── */}
                 <div className="flex items-center justify-center md:justify-end flex-shrink-0 w-full md:w-auto"
-                    style={{ padding: '1rem clamp(1.5rem, 7vw, 5rem) 0' }}>
+                    style={{ padding: 'clamp(0.5rem, 3vh, 1rem) clamp(1rem, 7vw, 5rem) 0' }}>
 
                     {/* Logo Wrapper */}
                     <div className="relative flex items-center justify-center transition-all duration-[1200ms] ease-out"

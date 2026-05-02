@@ -94,12 +94,11 @@ function Navbar() {
             `}</style>
 
             <header
-                className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out ${isScrolled || isMobileMenuOpen
+                className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out overflow-hidden ${isScrolled || isMobileMenuOpen
                     ? 'h-[64px] bg-[#FAFAFA]/95 backdrop-blur-md border-b border-gray-200 shadow-sm'
                     : 'h-[84px] bg-transparent border-b border-transparent shadow-none'
                     }`}
-                style={{ fontFamily: "'Montserrat', sans-serif" }}
-            >
+                style={{ fontFamily: "'Montserrat', sans-serif" }}>
                 {/* --- AMBIENT BACKGROUND --- */}
                 <div className={`absolute inset-0 z-0 overflow-hidden pointer-events-none transition-opacity duration-500 ${isMobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}>
                     <div className="absolute top-[-30px] left-[15%] w-[200px] h-[200px] rounded-full bg-blue-400/20 blur-[50px]" />
@@ -111,7 +110,7 @@ function Navbar() {
 
                     {/* Left: Branding & Rounded Logo */}
                     <a href="#" className="flex items-center gap-2 md:gap-3 cursor-pointer group z-50 shrink-0">
-                        <div className={`relative flex items-center justify-center bg-transparent border rounded-full overflow-hidden transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(29,111,232,0.3)] group-hover:border-[#1D6FE8]/50 ${isScrolled || isMobileMenuOpen ? 'w-[32px] h-[32px] md:w-[36px] md:h-[36px] border-gray-200' : 'w-[40px] h-[40px] md:w-[46px] md:h-[46px] border-white/10'
+                        <div className={`relative flex items-center justify-center bg-transparent border rounded-full overflow-hidden transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(29,111,232,0.3)] group-hover:border-[#1D6FE8]/50 ${isScrolled || isMobileMenuOpen ? 'w-[28px] h-[28px] md:w-[36px] md:h-[36px] border-gray-200' : 'w-[36px] h-[36px] md:w-[46px] md:h-[46px] border-white/10'
                             }`}>
                             <Image
                                 src="/logo.png"
@@ -121,11 +120,11 @@ function Navbar() {
                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                             />
                         </div>
-                        <div className="flex flex-col justify-center">
-                            <span className={`font-extrabold tracking-[0.2em] uppercase leading-none transition-all duration-500 ${isScrolled || isMobileMenuOpen ? 'text-[#1A1A1A] text-[12px] md:text-[14px]' : 'text-white text-[14px] md:text-[16px]'}`}>
+                        <div className="flex flex-col justify-center min-w-0">
+                            <span className={`font-extrabold tracking-[0.15em] uppercase leading-none transition-all duration-500 truncate ${isScrolled || isMobileMenuOpen ? 'text-[#1A1A1A] text-[11px] md:text-[14px]' : 'text-white text-[13px] md:text-[16px]'}`}>
                                 Drey<span className="text-[#1D6FE8] font-light">Cutz</span>
                             </span>
-                            <span className={`font-semibold tracking-[0.2em] uppercase transition-all duration-500 overflow-hidden ${isScrolled || isMobileMenuOpen ? 'text-gray-500 text-[0px] h-0 opacity-0' : 'text-white/40 text-[7px] md:text-[8px] mt-1 h-auto opacity-100'}`}>
+                            <span className={`font-semibold tracking-[0.2em] uppercase transition-all duration-500 overflow-hidden truncate ${isScrolled || isMobileMenuOpen ? 'text-gray-500 text-[0px] h-0 opacity-0' : 'text-white/40 text-[7px] md:text-[8px] mt-1 h-auto opacity-100'}`}>
                                 Grooming Studio
                             </span>
                         </div>
@@ -159,7 +158,7 @@ function Navbar() {
                     </nav>
 
                     {/* Right: Actions */}
-                    <div className="flex items-center gap-3 md:gap-4 z-50">
+                    <div className="flex items-center gap-2 md:gap-4 z-50">
                         {/* Desktop Socials */}
                         <div className="hidden lg:flex items-center gap-2">
                             {[
