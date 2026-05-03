@@ -29,7 +29,7 @@ function Hero() {
             {/* ── BG IMAGE ─────────────────────────────── */}
             <div className="absolute inset-0 z-0" aria-hidden="true">
                 <Image src="/salon-full-view.jpeg" alt="DreyCutz studio interior" fill priority
-                    style={{ objectFit: 'cover', animation: loaded ? 'dcZoom 18s ease forwards' : 'none' }} />
+                    style={{ objectFit: 'cover', animation: loaded ? 'dcZoom 18s ease forwards' : 'none', willChange: 'transform' }} />
             </div>
 
             {/* ── OVERLAYS ─────────────────────────────── */}
@@ -45,19 +45,19 @@ function Hero() {
                 style={{
                     width: 800, height: 800, left: '-10%', bottom: '-5%',
                     background: `radial-gradient(circle, rgba(29,111,232,0.38) 0%, rgba(29,111,232,0.10) 50%, transparent 70%)`,
-                    filter: 'blur(32px)', animation: 'dcOrb1 14s ease-in-out infinite'
+                    filter: 'blur(32px)', animation: 'dcOrb1 14s ease-in-out infinite', willChange: 'transform'
                 }} />
             <div className="absolute z-[2] rounded-full pointer-events-none" aria-hidden="true"
                 style={{
                     width: 500, height: 500, right: '5%', top: '15%',
                     background: `radial-gradient(circle, rgba(77,143,255,0.28) 0%, rgba(77,143,255,0.06) 55%, transparent 72%)`,
-                    filter: 'blur(40px)', animation: 'dcOrb2 18s ease-in-out infinite'
+                    filter: 'blur(40px)', animation: 'dcOrb2 18s ease-in-out infinite', willChange: 'transform'
                 }} />
             <div className="absolute z-[2] rounded-full pointer-events-none" aria-hidden="true"
                 style={{
                     width: 360, height: 360, left: '32%', top: '-10%',
                     background: `radial-gradient(circle, rgba(29,111,232,0.22) 0%, transparent 68%)`,
-                    filter: 'blur(44px)', animation: 'dcOrb3 22s ease-in-out infinite'
+                    filter: 'blur(44px)', animation: 'dcOrb3 22s ease-in-out infinite', willChange: 'transform'
                 }} />
 
             {/* ── FILM GRAIN ───────────────────────────── */}

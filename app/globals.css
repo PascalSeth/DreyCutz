@@ -253,7 +253,7 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 :root {
@@ -267,6 +267,10 @@ body {
   color: var(--foreground);
   font-family: "Montserrat", sans-serif;
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Utilities */

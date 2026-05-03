@@ -21,37 +21,45 @@ function Navbar() {
 
     // Handle scroll shrinking effect and active section detection
     useEffect(() => {
+        let ticking = false;
+
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    setIsScrolled(window.scrollY > 20);
 
-            // Scroll Spy Logic
-            const sections = navLinks.map(link => {
-                if (link.href === '#') return { name: link.name, offset: 0 };
-                const el = document.querySelector(link.href);
-                return { name: link.name, offset: el ? el.getBoundingClientRect().top + window.scrollY - 100 : 0 };
-            });
+                    // Scroll Spy Logic
+                    const sections = navLinks.map(link => {
+                        if (link.href === '#') return { name: link.name, offset: 0 };
+                        const el = document.querySelector(link.href);
+                        return { name: link.name, offset: el ? (el as HTMLElement).offsetTop - 100 : 0 };
+                    });
 
-            const currentPos = window.scrollY;
-            const currentSection = sections.reduce((acc, section) => {
-                return currentPos >= section.offset ? section : acc;
-            }, sections[0]);
+                    const currentPos = window.scrollY;
+                    const currentSection = sections.reduce((acc, section) => {
+                        return currentPos >= section.offset ? section : acc;
+                    }, sections[0]);
 
-            setActiveLink(currentSection.name);
+                    setActiveLink(currentSection.name);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [navLinks]);
 
     // Lock body scroll when mobile menu is open
     useEffect(() => {
         if (isMobileMenuOpen) {
             document.body.style.overflow = 'hidden';
         } else {
-            document.body.style.overflow = 'unset';
+            document.body.style.overflow = '';
         }
         return () => {
-            document.body.style.overflow = 'unset';
+            document.body.style.overflow = '';
         };
     }, [isMobileMenuOpen]);
 

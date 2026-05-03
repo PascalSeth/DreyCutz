@@ -47,6 +47,17 @@ export default function BookingModal() {
   }, [step]);
 
   useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
     const handleOpenModal = (event: any) => {
       const { serviceName } = event.detail;
       setBookingData(prev => ({ ...prev, serviceName: serviceName || 'General Consultation' }));

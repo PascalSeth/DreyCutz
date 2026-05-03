@@ -50,6 +50,7 @@ const GlobalBackground = () => {
         .falling-item {
           animation: floatDown var(--duration) linear var(--delay) infinite;
           opacity: 0;
+          will-change: transform, opacity;
         }
         @keyframes pulseGlow {
           0%, 100% { opacity: 0.5; transform: scale(1); }
