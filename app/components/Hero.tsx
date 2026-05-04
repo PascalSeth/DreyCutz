@@ -167,6 +167,10 @@ function Hero() {
                                     style={{ border: `1px solid ${BLUE}`, animation: 'dcRingPulse 2.4s ease-out 2s infinite' }} />
                             )}
                             <button
+                                onClick={() => {
+                                    const el = document.getElementById('booking');
+                                    el?.scrollIntoView({ behavior: 'smooth' });
+                                }}
                                 className="group relative flex items-center gap-2 cursor-pointer rounded-[4px] whitespace-nowrap font-bold uppercase transition-all duration-200"
                                 aria-label="Book an appointment"
                                 style={{
@@ -188,6 +192,10 @@ function Hero() {
                         </div>
 
                         <button
+                            onClick={() => {
+                                const el = document.getElementById('services');
+                                el?.scrollIntoView({ behavior: 'smooth' });
+                            }}
                             className="cursor-pointer rounded-[4px] whitespace-nowrap font-semibold uppercase transition-all duration-200"
                             style={{
                                 height: 42, padding: '0 1.5rem', background: 'transparent',
